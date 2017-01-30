@@ -1,95 +1,123 @@
 <?php
 
-function internet_reception_menu(){
-    $items = array();
+/**
+ * @file
+ * Internet reception module file.
+ *
+ * The user fills in a special form fields (Name, Email, Age, Subject, Message,
+ * Captcha). All fields are required. Upon confirmation of the form data is
+ * checked for correct input. Then a letter of reference data is sent to the
+ * site administrator.
+ */
 
-    $items['internet_reception'] = array(
-        'title' => 'Internet reception',
-        'page callback' => 'main_function',
-        'type' => MENU_NORMAL_ITEM,
-        'access callback' => TRUE,
-    );
+/**
+ * Implements hook_menu().
+ */
+function internet_reception_menu() {
+  $items = array();
 
-    return $items;
+  $items['internet_reception'] = array(
+    'title' => 'Internet reception',
+    'page callback' => 'main_function',
+    'type' => MENU_NORMAL_ITEM,
+    'access callback' => TRUE,
+  );
+
+  return $items;
 }
 
-function main_function(){
-    $form = drupal_get_form('reception_form');
-    $form = drupal_render($form);
-    return $form;
+/**
+ * Main function. Display a page with a form.
+ */
+function main_function() {
+  $form = drupal_get_form('reception_form');
+  $form = drupal_render($form);
+
+  return $form;
 }
 
-function reception_form($form, &$form_state){
-    $form=array();
+/**
+ * Called main_function().
+ *
+ * @return array
+ *   An array of forms on the page.
+ */
+function reception_form($form, &$form_state) {
+  $form = array();
 
-    $form['name']=array(
-        '#type' => 'textfield',
-        '#title' => t('Name'),
-        '#required' => true
-    );
+  $form['name'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Name'),
+    '#required' => TRUE,
+  );
 
-    $form['email']=array(
-        '#type' => 'textfield',
-        '#title' => t('Email'),
-        '#required' => true
-    );
+  $form['email'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email'),
+    '#required' => TRUE,
+  );
 
-    $form['age']=array(
-        '#type' => 'textfield',
-        '#title' => t('Age'),
-        '#element_validate' => array('element_validate_integer_positive'),
-        '#required' => true
-    );
+  $form['age'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Age'),
+    '#element_validate' => array('element_validate_integer_positive'),
+    '#required' => TRUE,
+  );
 
-    $form['subject']=array(
-        '#type' => 'textfield',
-        '#title' => t('Subject'),
-        '#required' => true
-    );
+  $form['subject'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Subject'),
+    '#required' => TRUE,
+  );
 
-    $form['message']=array(
-        '#type' => 'textarea',
-        '#title' => t('Message'),
-        '#required' => true
-    );
+  $form['message'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Message'),
+    '#required' => TRUE,
+  );
 
-    $form['submit'] = array(
-        '#type' => 'submit',
-        '#value' => t('Submit'),
-    );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
 
-    return $form;
+  return $form;
 }
 
-function reception_form_validate($form, &$form_state){
-    if(mb_strlen($form_state['values']['name'])<3){
-        form_set_error('name', t('Short name.'));
-    }
+/**
+ * Implements hook_validate().
+ */
+function reception_form_validate($form, &$form_state) {
+  if (mb_strlen($form_state['values']['name']) < 3) {
+    form_set_error('name', t('Short name.'));
+  }
 
-    if(mb_strlen($form_state['values']['name'])>15){
-        form_set_error('name', t('Long name.'));
-    }
+  if (mb_strlen($form_state['values']['name']) > 15) {
+    form_set_error('name', t('Long name.'));
+  }
 
-    if(!valid_email_address($form_state['values']['email'])){
-        form_set_error('email', t('Incorrect email.'));
-    }
+  if (!valid_email_address($form_state['values']['email'])) {
+    form_set_error('email', t('Incorrect email.'));
+  }
 
-    if(mb_strlen($form_state['values']['subject'])>63){
-        form_set_error('subject', t('Long subject.'));
-    }
+  if (mb_strlen($form_state['values']['subject']) > 63) {
+    form_set_error('subject', t('Long subject.'));
+  }
 
-    if(mb_strlen($form_state['values']['subject'])>255){
-        form_set_error('message', t('Long message.'));
-    }
+  if (mb_strlen($form_state['values']['subject']) > 255) {
+    form_set_error('message', t('Long message.'));
+  }
 }
 
+/**
+ * Implements hook_mail().
+ */
 function reception_form_mail($key, &$message, $params) {
-
   $headers = array(
     'MIME-Version' => '1.0',
     'Content-Type' => 'text/html; charset=UTF-8;',
     'Content-Transfer-Encoding' => '8Bit',
-    'X-Mailer' => 'Drupal'
+    'X-Mailer' => 'Drupal',
   );
 
   foreach ($headers as $key => $value) {
@@ -100,22 +128,23 @@ function reception_form_mail($key, &$message, $params) {
   $message['body'] = $params['body'];
 }
 
-function reception_form_submit($form, &$form_state){
-    //debug($form_state['values']);
-    
-    $valid_email = $form_state['values']['email'];
-    $from = $form_state['values']['email'];
-    $body[] = 'Name : '.$form_state['values']['name'].'; Age : '.$form_state['values']['age'].'; Message : '.$form_state['values']['message'];
-    $to = variable_get('site_mail', '');
-    $params = array(
-        'body' => $body,
-        'subject' => $form_state['values']['subject'],
-    );
+/**
+ * Implements hook_submit().
+ */
+function reception_form_submit($form, &$form_state) {
+  $valid_email = $form_state['values']['email'];
+  $from = $form_state['values']['email'];
+  $body[] = 'Name : ' . $form_state['values']['name'] . '; Age : ' . $form_state['values']['age'] . '; Message : ' . $form_state['values']['message'];
+  $to = variable_get('site_mail', '');
+  $params = array(
+    'body' => $body,
+    'subject' => $form_state['values']['subject'],
+  );
 
-    if (drupal_mail('reception_form', 'some_mail_key', $to, language_default(), $params, $from, TRUE))
-    {
-        drupal_set_message('Message sent.');     
-    } else {
-        drupal_set_message('Message not sent. Please try again later.');
-    }  
+  if (drupal_mail('reception_form', 'some_mail_key', $to, language_default(), $params, $from, TRUE)) {
+    drupal_set_message('Message sent.');
+  }
+  else {
+    drupal_set_message('Message not sent. Please try again later.');
+  }
 }
