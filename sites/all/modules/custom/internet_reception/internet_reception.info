@@ -1,4 +1,5 @@
 name = Internet reception
 description = Internet reception module.
-package = «Custom»
 core = 7.x
+package = «Custom»
+dependencies[] = captcha

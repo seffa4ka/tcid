@@ -6,7 +6,12 @@
  */
 
 /**
- * Implements hook_form().
+ * Form function.
+ *
+ * Field: name, email, agesubject, message, captcha and buttun submit.
+ *
+ * @return array
+ *   Returns field values.
  */
 function internet_reception_form($form, &$form_state) {
   $form = array();
@@ -55,7 +60,7 @@ function internet_reception_form($form, &$form_state) {
 }
 
 /**
- * Implements hook_validate().
+ * Validate field: name, email, subject, message.
  */
 function internet_reception_form_validate($form, &$form_state) {
   if (mb_strlen($form_state['values']['name']) < 3) {
@@ -74,32 +79,13 @@ function internet_reception_form_validate($form, &$form_state) {
     form_set_error('subject', t('Long subject.'));
   }
 
-  if (mb_strlen($form_state['values']['subject']) > 255) {
+  if (mb_strlen($form_state['values']['message']) > 255) {
     form_set_error('message', t('Long message.'));
   }
 }
 
 /**
- * Implements hook_mail().
- */
-function internet_reception_form_mail($key, &$message, $params) {
-  $headers = array(
-    'MIME-Version' => '1.0',
-    'Content-Type' => 'text/html; charset=UTF-8;',
-    'Content-Transfer-Encoding' => '8Bit',
-    'X-Mailer' => 'Drupal',
-  );
-
-  foreach ($headers as $key => $value) {
-    $message['headers'][$key] = $value;
-  }
-
-  $message['subject'] = $params['subject'];
-  $message['body'] = $params['body'];
-}
-
-/**
- * Implements hook_submit().
+ * Submit information.
  */
 function internet_reception_form_submit($form, &$form_state) {
   $valid_email = $form_state['values']['email'];
