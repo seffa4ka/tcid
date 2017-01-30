@@ -1,6 +1,4 @@
 name = Internet reception
 description = Internet reception module.
-package = «Internet»
+package = «Custom»
 core = 7.x
-version = «7.x-1.0»
-files[]= internet_reception.module
