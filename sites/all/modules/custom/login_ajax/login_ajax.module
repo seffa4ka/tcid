@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file 
+ */
+
+/**
+ *function login_ajax_form_alter(&$form, &$form_state, $form_id) {
+ *  dsm($form_id);
+ *  dsm($form);
+ *}
+ */
+
+function login_ajax_form_user_login_block_alter(&$form, &$form_state, $form_id) {
+  dsm($form);
+
+  $form['actions']['submit']['#ajax'] = array(
+    'callback' => 'login_ajax_callback',
+    'wrapper' => 'user-login-form',
+    'event' => 'click',
+  );
+}
+
+function login_ajax_callback (&$form, &$form_state, $form_id) {
+  dsm($form);
+  //$form = array();
+  //return $form;
+}
