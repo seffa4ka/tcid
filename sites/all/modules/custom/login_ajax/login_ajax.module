@@ -46,7 +46,10 @@ function login_ajax_callback(&$form, &$form_state, $form_id) {
 
   if ($user->uid) {
     $form['label'] = array(
-      '#markup' => variable_get('contact_form_information', t("Hello, $user->name! To see the website as a registered user go to this <a href='/user'>link</a>.")),
+      '#markup' => variable_get('contact_form_information', t('Hello, @username! To see the website as a registered user go to this <a href="@user-url">link</a>.', array(
+        '@username' => $user->name,
+        '@user-url' => url('user'),
+      ))),
     );
   }
 
