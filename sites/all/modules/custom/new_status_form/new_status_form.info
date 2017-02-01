@@ -1,0 +1,4 @@
+name = New Statu Form
+description = O module for site status messages in a popup window.
+core = 7.x
+package = Custom
