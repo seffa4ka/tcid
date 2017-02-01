@@ -1,18 +1,17 @@
 <?php
 
 /**
- * @file 
+ * @file
+ * Login ajax module file.
+ *
+ * The module that modifies an existing entry form on the website so that it
+ * works without a reboot.
  */
 
 /**
- *function login_ajax_form_alter(&$form, &$form_state, $form_id) {
- *  dsm($form_id);
- *  dsm($form);
- *}
+ * Implements form_alter().
  */
-
 function login_ajax_form_user_login_block_alter(&$form, &$form_state, $form_id) {
-  dsm($form);
 
   $form['actions']['submit']['#ajax'] = array(
     'callback' => 'login_ajax_callback',
@@ -21,8 +20,29 @@ function login_ajax_form_user_login_block_alter(&$form, &$form_state, $form_id) 
   );
 }
 
-function login_ajax_callback (&$form, &$form_state, $form_id) {
-  dsm($form);
-  //$form = array();
-  //return $form;
+/**
+ * Callback function.
+ *
+ * @return array
+ *   It returns a value depending on the state of user authentication.
+ */
+function login_ajax_callback(&$form, &$form_state, $form_id) {
+
+  global $user;
+
+  $form = array();
+
+  if ($user->uid) {
+    $form['label'] = array(
+      '#markup' => variable_get('contact_form_information', t('Hello, username! To see the website as a registered user go to this link.')),
+    );
+  }
+
+  else {
+    $form['label'] = array(
+      '#markup' => variable_get('contact_form_information', t('Incorrect login and/or password!')),
+    );
+  }
+
+  return $form;
 }
