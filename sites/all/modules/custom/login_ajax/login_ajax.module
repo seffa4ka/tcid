@@ -9,36 +9,36 @@
  */
 
 /**
- * Implements form_alter().
+ * Implements form_FORM_ID_alter().
  */
 function login_ajax_form_user_login_block_alter(&$form, &$form_state, $form_id) {
 
   $form['actions']['submit']['#ajax'] = array(
-    'callback' => 'login_ajax_callback',
+    'callback' => 'login_ajax_authentication_callback',
     'wrapper' => 'user-login-form',
     'event' => 'click',
   );
 }
 
 /**
- * Implements form_alter().
+ * Implements form_FORM_ID_alter().
  */
 function login_ajax_form_user_login_alter(&$form, &$form_state, $form_id) {
 
   $form['actions']['submit']['#ajax'] = array(
-    'callback' => 'login_ajax_callback',
+    'callback' => 'login_ajax_authentication_callback',
     'wrapper' => 'user-login',
     'event' => 'click',
   );
 }
 
 /**
- * Callback function.
+ * Function returns form.
  *
  * @return array
  *   It returns a value depending on the state of user authentication.
  */
-function login_ajax_callback(&$form, &$form_state, $form_id) {
+function login_ajax_authentication_callback(&$form, &$form_state, $form_id) {
 
   global $user;
 
@@ -46,8 +46,8 @@ function login_ajax_callback(&$form, &$form_state, $form_id) {
 
   if ($user->uid) {
     $form['label'] = array(
-      '#markup' => variable_get('contact_form_information', t('Hello, @username! To see the website as a registered user go to this <a href="@user-url">link</a>.', array(
-        '@username' => $user->name,
+      '#markup' => variable_get('contact_form_information', t('Hello, !username! To see the website as a registered user go to this <a href="@user-url">link</a>.', array(
+        '!username' => $user->name,
         '@user-url' => url('user'),
       ))),
     );

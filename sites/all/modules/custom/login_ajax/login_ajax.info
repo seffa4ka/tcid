@@ -1,5 +1,4 @@
 name = Log in (AJAX)
 description = It modifies the standard form "Log in".
 core = 7.x
-package = «Custom»
-#dependencies[] = 
+package = Custom
