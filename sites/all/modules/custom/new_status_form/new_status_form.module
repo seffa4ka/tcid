@@ -7,36 +7,38 @@
  * O module for site status messages in a popup window.
  */
 
-echo say_message(drupal_get_messages());
+/**
+ * Start function.
+ */
+function new_status_form_theme_registry_alter(&$theme_registry) {
+  $theme_registry['status_messages']['function'] = 'new_status_form_get_message';
+}
 
 /**
- * Return message.
+ * Include theme.
  */
-function say_message($messages) {
+function new_status_form_theme() {
+  return array(
+    'new_status_form' => array(
+      'variables' => array(
+        'body' => NULL,
+      ),
+      'template' => 'theme/tpl/new_status_form_template',
+    ),
+  );
+}
 
-  if (isset($messages)) {
-
-    if (isset($messages['status'])) {
-      foreach ($messages['status'] as $message) {
-
-        return $message;
-      }
-    }
-
-    if (isset($messages['warning'])) {
-      foreach ($messages['warning'] as $message) {
-
-        return $message;
-      }
-    }
-
-    if (isset($messages['error'])) {
-      foreach ($messages['error'] as $message) {
-
-        return $message;
-      }
+/**
+ * Return title and messages.
+ */
+function new_status_form_get_message() {
+  foreach (drupal_get_messages() as $type => $messages) {
+    foreach ($messages as $message) {
+      $list[$type][] = $message;
     }
   }
 
-  return NULL;
+  if (isset($list)) {
+    return theme('new_status_form', array('body' => $list));
+  }
 }
