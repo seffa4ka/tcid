@@ -40,8 +40,14 @@ function new_status_form_config_form($form, &$form_state) {
     '#type' => 'radios',
     '#options' => array(200 => "200px", 500 => "500px", 800 => "800px"),
     '#default_value' => variable_get('form_width', 500),
-  );  
+  );
 
+  $form['form_bg'] = array(
+    '#title' => t('Color window'),
+    '#type' => 'radios',
+    '#options' => array('darkgoldenrod' => "darkgoldenrod", 'burlywood' => "burlywood", 'coral' => "coral"),
+    '#default_value' => variable_get('form_bg', 'burlywood'),
+  );
   return system_settings_form($form);
 }
 
@@ -84,6 +90,7 @@ function new_status_form_get_message() {
     'new_status' => array(
       'form_height' => variable_get('form_height'),
       'form_width' => variable_get('form_width'),
+      'form_bg' => variable_get('form_bg'),
     ),
   ), 'setting');
 
