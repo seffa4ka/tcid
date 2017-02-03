@@ -2,5 +2,7 @@ name = New Statu Form
 description = O module for site status messages in a popup window.
 core = 7.x
 package = Custom
+configure = admin/config/new_status_form
+
 stylesheets[all][] = theme/css/new_status_form.css
 scripts[] = theme/js/new_status_form_js.js

@@ -8,6 +8,44 @@
  */
 
 /**
+ * Implements hook_menu().
+ */
+function new_status_form_menu() {
+  $items['admin/config/new_status_form'] = array(
+    'title' => 'New status form',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('new_status_form_config_form'),
+    'access arguments' => array('administer site configuration'),
+  );
+ 
+  return $items;
+}
+
+
+/**
+ * Form admin configuration.
+ */
+function new_status_form_config_form($form, &$form_state) {
+  $form = array();
+  
+  $form['form_height'] = array(
+    '#title' => t('Height window'),
+    '#type' => 'radios',
+    '#options' => array(160 => "160px", 200 => "200px", 400 => "400px"),
+    '#default_value' => variable_get('form_height', 200),
+  );
+
+  $form['form_width'] = array(
+    '#title' => t('Width window'),
+    '#type' => 'radios',
+    '#options' => array(200 => "200px", 500 => "500px", 800 => "800px"),
+    '#default_value' => variable_get('form_width', 500),
+  );  
+
+  return system_settings_form($form);
+}
+
+/**
  * Implements init().
  */
 function new_status_form_init() {
@@ -24,7 +62,7 @@ function new_status_form_theme_registry_alter(&$theme_registry) {
 /**
  * Implements form_theme().
  */
-function new_status_form_theme() {
+function new_status_form_theme() {  
   return array(
     'new_status_form' => array(
       'variables' => array(
@@ -42,6 +80,13 @@ function new_status_form_theme() {
  *   $list
  */
 function new_status_form_get_message() {
+  drupal_add_js(array(
+    'new_status' => array(
+      'form_height' => variable_get('form_height'),
+      'form_width' => variable_get('form_width'),
+    ),
+  ), 'setting');
+
   foreach (drupal_get_messages() as $type => $messages) {
     foreach ($messages as $message) {
       $list[$type][] = $message;

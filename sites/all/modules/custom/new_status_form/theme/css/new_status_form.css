@@ -22,7 +22,6 @@
 }
 
 .new-title {
-    width: 480px;
     height: 15%;
     background-color: beige;
     padding: 10px 10px 0px 10px;
@@ -54,19 +53,24 @@
 .new-body {
     overflow-y: scroll;
     background: burlywood;
+    border: 0;
     height: 85%;
 }
 
 .new-status-messages {
     padding: 10px;
+    color: black;
+    font-weight: normal;
 }
 
 .new-error-messages {
     padding: 10px;
     color: red;
+    font-weight: normal;
 }
 
 .new-warning-messages {
     padding: 10px;
     color: yellow;
+    font-weight: normal;
 }
