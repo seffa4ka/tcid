@@ -16,6 +16,8 @@
     top: 38%;
     left: 38%;
     background-color: wheat;
+    border: 0;
+    color: #000;
     z-index: 999;
 }
 
@@ -27,7 +29,16 @@
 }
 
 .new-title-button {
-    cursor: pointer;
+    cursor: pointer !important;
+    background: #131 !important;
+    font-weight: normal !important;
+    border: none !important;
+    color: white !important;
+    padding: 2px 5px 2px 4px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    font-size: 14px !important;
 }
 
 .new-title-message {
@@ -36,6 +47,8 @@
 
 .new-title-button {
     float: right;
+    margin: 0;
+    padding: 0;
 }
 
 .new-body {

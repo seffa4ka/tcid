@@ -9,12 +9,12 @@
 ?>
 <div class="custom-template-wrapper">
   <div class="new-mask"></div>
-  <div class="new-window">
+  <div class="new-window ui-widget-content">
     <div class="new-title">
       <div class="new-title-message">New status form</div>
-      <button class="new-title-button">X</button>
+      <input class="new-title-button ui-widget-header" type="button" value="Х" />
     </div>
-    <div class="new-body">
+    <div class="new-body ui-widget-header">
       <?php
       foreach ($variables['body'] as $title => $messages) {
       ?>

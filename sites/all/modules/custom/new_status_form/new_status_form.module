@@ -8,14 +8,21 @@
  */
 
 /**
- * Start function.
+ * Implements init().
+ */
+function new_status_form_init() {
+  drupal_add_library('system', 'ui.draggable');
+}
+
+/**
+ * Implements theme_registry_alter().
  */
 function new_status_form_theme_registry_alter(&$theme_registry) {
   $theme_registry['status_messages']['function'] = 'new_status_form_get_message';
 }
 
 /**
- * Include theme.
+ * Implements form_theme().
  */
 function new_status_form_theme() {
   return array(
@@ -30,6 +37,9 @@ function new_status_form_theme() {
 
 /**
  * Return title and messages.
+ *
+ * @return array
+ *   $list
  */
 function new_status_form_get_message() {
   foreach (drupal_get_messages() as $type => $messages) {
