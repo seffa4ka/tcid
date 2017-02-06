@@ -1,76 +1,76 @@
 .new-mask {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: black;
-    opacity: 0.6;
-    z-index: 900;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: black;
+  opacity: 0.6;
+  z-index: 900;
 }
 
 .new-window {
-    position: fixed;
-    width: 500px;
-    height: 200px;
-    top: 38%;
-    left: 38%;
-    background-color: wheat;
-    border: 0;
-    color: #000;
-    z-index: 999;
+  position: fixed;
+  width: 500px;
+  height: 200px;
+  top: 38%;
+  left: 38%;
+  background-color: wheat;
+  border: 0;
+  color: #000;
+  z-index: 999;
 }
 
 .new-title {
-    height: 15%;
-    background-color: beige;
-    padding: 10px 10px 0px 10px;
+  height: 15%;
+  background-color: beige;
+  padding: 10px 10px 0px 10px;
 }
 
 .new-title-button {
-    cursor: pointer !important;
-    background: #131 !important;
-    font-weight: normal !important;
-    border: none !important;
-    color: white !important;
-    padding: 2px 5px 2px 4px !important;
-    text-align: center !important;
-    text-decoration: none !important;
-    display: inline-block !important;
-    font-size: 14px !important;
+  cursor: pointer !important;
+  background: #131 !important;
+  font-weight: normal !important;
+  border: none !important;
+  color: white !important;
+  padding: 2px 5px 2px 4px !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  font-size: 14px !important;
 }
 
 .new-title-message {
-    float: left;
+  float: left;
 }
 
 .new-title-button {
-    float: right;
-    margin: 0;
-    padding: 0;
+  float: right;
+  margin: 0;
+  padding: 0;
 }
 
 .new-body {
-    overflow-y: scroll;
-    background: burlywood;
-    border: 0;
-    height: 85%;
+  overflow-y: scroll;
+  background: burlywood;
+  border: 0;
+  height: 85%;
 }
 
 .new-status-messages {
-    padding: 10px;
-    color: black;
-    font-weight: normal;
+  padding: 10px;
+  color: black;
+  font-weight: normal;
 }
 
 .new-error-messages {
-    padding: 10px;
-    color: red;
-    font-weight: normal;
+  padding: 10px;
+  color: red;
+  font-weight: normal;
 }
 
 .new-warning-messages {
-    padding: 10px;
-    color: yellow;
-    font-weight: normal;
+  padding: 10px;
+  color: yellow;
+  font-weight: normal;
 }
