@@ -8,6 +8,8 @@ Drupal.behaviors.new_status = {
   attach: function (context, settings) {
     $(document).ready(function () {
 
+      var flag = false;
+
       if (settings.new_status.form_height !== null) {
         var form_h = settings.new_status.form_height;
       }
@@ -45,9 +47,59 @@ Drupal.behaviors.new_status = {
         $('.custom-template-wrapper').hide();
       });
 
-      $(function () {
-        $('.new-window').draggable({ cancel: '.ui-widget-header' }, { containment: '.new-mask', scroll: false });
+      $('.new-window').mousedown(function(e) {
+
+        var position = $('.new-window').position();
+        var xw = getPosition(e).x - position.left;
+        var yw = getPosition(e).y - position.top;		
+
+        function getPosition(v) {
+          var posx = 0;
+          var posy = 0;
+
+          if (!v) var v = window.event;
+
+          if (v.pageX || v.pageY) {
+                posx = v.pageX;
+                posy = v.pageY;
+          }
+          else if (v.clientX || v.clientY) {
+                posx = v.clientX + document.body.scrollLeft
+                  + document.documentElement.scrollLeft;
+                posy = v.clientY + document.body.scrollTop
+                  + document.documentElement.scrollTop;
+          }
+
+          return {
+                x: posx,
+                y: posy
+          }
+        }
+
+        function moveWindow(e) {
+          var x = getPosition(e).x;
+          var y = getPosition(e).y;
+
+          $('.new-window').css('left', x - xw);
+          $('.new-window').css('top', y - yw);
+        }
+
+        $(document).mousemove( function(e) {
+          if(flag){moveWindow(e);}
+        });
+
+        $('.new-window').mouseup( function() {
+          $(document).off();
+        });
+    });
+
+    $('.new-title').mousedown(function() {
+      flag = true;
+
+      $('.new-title').mouseup( function() {
+        flag = false;
       });
+    });
     });
   }
  };

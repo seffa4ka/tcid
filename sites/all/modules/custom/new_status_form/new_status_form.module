@@ -23,13 +23,6 @@ function new_status_form_menu() {
 }
 
 /**
- * Implements init().
- */
-function new_status_form_init() {
-  drupal_add_library('system', 'ui.draggable');
-}
-
-/**
  * Implements theme_registry_alter().
  */
 function new_status_form_theme_registry_alter(&$theme_registry) {
