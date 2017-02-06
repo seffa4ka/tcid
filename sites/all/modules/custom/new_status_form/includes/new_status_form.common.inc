@@ -6,10 +6,10 @@
  */
 
 /**
- * Passes variables for js and return title and messages.
+ * The function of forming the message box.
  *
- * @return array
- *   $list
+ * Transmitted settings window: form_height, form_width, form_bg. If there is a
+ * message, return $final_list.
  */
 function new_status_form_get_message() {
   drupal_add_js(array(
@@ -27,6 +27,35 @@ function new_status_form_get_message() {
   }
 
   if (isset($list)) {
-    return theme('new_status_form', array('body' => $list));
+    $final_list = '';
+
+    foreach ($list as $title => $messages) {
+
+      if ($title === 'status') {
+        $final_list .= '<div class="new-status-messages">';
+        foreach ($messages as $message) {
+          $final_list .= $message . '<br>';
+        }
+        $final_list .= '</div>';
+      }
+
+      if ($title === 'error') {
+        $final_list .= '<div class="new-error-messages">';
+        foreach ($messages as $message) {
+          $final_list .= $message . '<br>';
+        }
+        $final_list .= '</div>';
+      }
+
+      if ($title === 'warning') {
+        $final_list .= '<div class="new-warning-messages">';
+        foreach ($messages as $message) {
+          $final_list .= $message . '<br>';
+        }
+        $final_list .= '</div>';
+      }
+    }
+
+    return theme('new_status_form', array('body' => $final_list));
   }
 }

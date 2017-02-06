@@ -16,47 +16,7 @@
     </div>
     <div class="new-body ui-widget-header">
       <?php
-      foreach ($variables['body'] as $title => $messages) {
-      ?>
-        <?php
-        if($title === 'status'){
-        ?>
-        <div class="new-status-messages">
-          <?php
-          foreach ($messages as $message) {
-            echo $message . '<br>';
-          }
-          ?>
-        </div>
-        <?php
-        }
-
-        if($title === 'error'){
-        ?>
-        <div class="new-error-messages">
-          <?php
-          foreach ($messages as $message) {
-            echo $message . '<br>';
-          }
-          ?>
-        </div>
-        <?php
-        }
-
-        if($title === 'warning'){
-        ?>
-        <div class="new-warning-messages">
-          <?php
-          foreach ($messages as $message) {
-            echo $message . '<br>';
-          }
-          ?>
-        </div>
-        <?php
-        }
-        ?>
-      <?php
-      }
+        echo $variables['body'];
       ?>
     </div>
   </div>
