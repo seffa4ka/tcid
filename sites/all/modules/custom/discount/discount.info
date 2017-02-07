@@ -2,3 +2,4 @@ name = Discount
 description = Issues a token upon registration.
 core = 7.x
 package = Custom
+configure = admin/config/discount

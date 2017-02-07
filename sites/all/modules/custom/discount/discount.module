@@ -6,3 +6,31 @@
  *
  * Issues a token upon registration.
  */
+
+/**
+ * Implements hook_menu().
+ */
+function discount_menu() {
+  $items = array();
+
+  $items['discount'] = array(
+    'title' => 'Discount',
+    'description' => 'This is discount.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('discount_form'),
+    'type' => MENU_NORMAL_ITEM,
+    'access callback' => 'user_is_logged_in',
+    'access arguments' => array(1),
+    'file' => 'includes/discount.form.inc',
+  );
+
+  $items['admin/config/discount'] = array(
+    'title' => 'Discount',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('discount_config_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'includes/discount.admin.inc',
+  );
+
+  return $items;
+}
