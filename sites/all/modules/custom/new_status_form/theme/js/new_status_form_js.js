@@ -7,7 +7,7 @@
 Drupal.behaviors.new_status = {
   attach: function (context, settings) {
     $(document).ready(function () {
-
+      var window = $('.new-window');
       var flag = false;
 
       if (settings.new_status.form_height !== null) {
@@ -31,13 +31,13 @@ Drupal.behaviors.new_status = {
         var form_bg = 'burlywood';
       }
 
-      $('.new-window').height(form_h);
+      window.height(form_h);
 
-      $('.new-window').width(form_w);
+      window.width(form_w);
 
       $('.new-body').css('background-color', form_bg);
 
-      $('.new-window').offset({top: $('.new-mask').outerHeight() / 2 - form_h / 2, left: $('.new-mask').outerWidth() / 2 - form_w / 2});
+      window.offset({top: $('.new-mask').outerHeight() / 2 - form_h / 2, left: $('.new-mask').outerWidth() / 2 - form_w / 2});
 
       $('.new-title-button').click(function () {
         $('.custom-template-wrapper').hide();
@@ -47,17 +47,19 @@ Drupal.behaviors.new_status = {
         $('.custom-template-wrapper').hide();
       });
 
-      $('.new-window').mousedown(function(e) {
+      window.mousedown(function (e) {
 
-        var position = $('.new-window').position();
+        var position = window.position();
         var xw = getPosition(e).x - position.left;
-        var yw = getPosition(e).y - position.top;		
+        var yw = getPosition(e).y - position.top;
 
         function getPosition(v) {
           var posx = 0;
           var posy = 0;
 
-          if (!v) var v = window.event;
+          if (!v) {
+            var v = window.event;
+          }
 
           if (v.pageX || v.pageY) {
                 posx = v.pageX;
@@ -80,23 +82,25 @@ Drupal.behaviors.new_status = {
           var x = getPosition(e).x;
           var y = getPosition(e).y;
 
-          $('.new-window').css('left', x - xw);
-          $('.new-window').css('top', y - yw);
+          window.css('left', x - xw);
+          window.css('top', y - yw);
         }
 
-        $(document).mousemove( function(e) {
-          if(flag){moveWindow(e);}
+        $(document).mousemove(function (e) {
+          if (flag) {
+            moveWindow(e);
+          }
         });
 
-        $('.new-window').mouseup( function() {
+        window.mouseup(function () {
           $(document).off();
         });
     });
 
-    $('.new-title').mousedown(function() {
+    $('.new-title').mousedown(function () {
       flag = true;
 
-      $('.new-title').mouseup( function() {
+      $('.new-title').mouseup(function () {
         flag = false;
       });
     });
