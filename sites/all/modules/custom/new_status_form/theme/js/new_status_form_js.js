@@ -8,6 +8,10 @@ Drupal.behaviors.new_status = {
   attach: function (context, settings) {
     $(document).ready(function () {
 
+      var window = $('.new-window');
+      var mask = $('.new-mask');
+      var wrapper = $('.custom-template-wrapper')
+
       if (settings.new_status.form_height !== null) {
         var form_h = settings.new_status.form_height;
       }
@@ -29,24 +33,24 @@ Drupal.behaviors.new_status = {
         var form_bg = 'burlywood';
       }
 
-      $('.new-window').height(form_h);
+      window.height(form_h);
 
-      $('.new-window').width(form_w);
+      window.width(form_w);
 
       $('.new-body').css('background-color', form_bg);
 
-      $('.new-window').offset({top: $('.new-mask').outerHeight() / 2 - form_h / 2, left: $('.new-mask').outerWidth() / 2 - form_w / 2});
+      window.offset({top: mask.outerHeight() / 2 - form_h / 2, left: mask.outerWidth() / 2 - form_w / 2});
 
       $('.new-title-button').click(function () {
-        $('.custom-template-wrapper').hide();
+        wrapper.hide();
       });
 
-      $('.new-mask').click(function () {
-        $('.custom-template-wrapper').hide();
+      mask.click(function () {
+        wrapper.hide();
       });
 
       $(function () {
-        $('.new-window').draggable({ cancel: '.ui-widget-header' }, { containment: '.new-mask', scroll: false });
+        window.draggable({ cancel: '.ui-widget-header' }, { containment: '.new-mask', scroll: false });
       });
     });
   }
