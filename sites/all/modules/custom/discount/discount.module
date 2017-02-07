@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * @file
+ * Discount module file.
+ *
+ * Issues a token upon registration.
+ */
