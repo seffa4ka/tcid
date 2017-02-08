@@ -7,6 +7,10 @@
  * Issues a token upon registration.
  */
 
+$path = drupal_get_path('module', 'discount');
+require_once $path . '/model/discount.db.inc';
+require_once $path . '/includes/discount.common.inc';
+
 /**
  * Implements hook_menu().
  */
@@ -69,7 +73,6 @@ function discount_token_info() {
  */
 function discount_tokens($type, $tokens, array $data = array(), array $options = array()) {
 
-  global $user;
   $replacements = array();
 
   if ($type == 'discount') {
@@ -77,7 +80,7 @@ function discount_tokens($type, $tokens, array $data = array(), array $options =
       switch ($name) {
         case 'code':
 
-          $code = db_query("SELECT discount FROM {discount_discount} WHERE uid = '$user->uid'")->fetchField();
+          $code = discount_db_get_code();
           if ($code) {
             $replacements[$original] = $code;
           }
@@ -93,15 +96,12 @@ function discount_tokens($type, $tokens, array $data = array(), array $options =
 }
 
 /**
- * Main function.
+ * After registration.
+ *
+ * Calls the discount_generate_code() and redirect on discount pages.
  */
 function discount_form_submit($form, &$form_state) {
 
-  global $user;
-  $discount_value = array(
-    'uid' => $user->uid,
-    'discount'  => substr(uniqid(), 3),
-  );
-  drupal_write_record('discount_discount', $discount_value);
+  discount_generate_code();
   $form_state['redirect'] = 'discount';
 }
