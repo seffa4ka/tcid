@@ -18,7 +18,7 @@ function discount_config_form($form, &$form_state) {
 
   $form['discount_message'] = array(
     '#title' => t('Discount message'),
-    '#description' => t('Input discount message.'),
+    '#description' => t('Input discount message. Usage [current-user:name] for display user name and [] for display discount code.'),
     '#type' => 'textarea',
     '#default_value' => variable_get('discount_message', 'Hello!'),
   );

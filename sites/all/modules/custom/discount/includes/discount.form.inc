@@ -12,7 +12,7 @@ function discount_form($form, &$form_state) {
   $form = array();
 
   $form['label'] = array(
-    '#markup' => variable_get('discount_message', t('First hello!')),
+    '#markup' => token_replace(variable_get('discount_message', t('Hello!'))),
   );
 
   return $form;
