@@ -43,6 +43,9 @@ function discount_form_user_register_form_alter(&$form, &$form_state, $form_id) 
   $form['#submit'][] = 'discount_form_submit';
 }
 
+/**
+ * Main function.
+ */
 function discount_form_submit($form, &$form_state) {
 
   $form_state['redirect'] = 'discount';
