@@ -58,6 +58,14 @@ function entity_discount_entity_info() {
 }
 
 /**
+ * Implements hook_entity_property_info_alter().
+ */
+function entity_discount_entity_property_info_alter(&$info) {
+  $info['entity_discount_entity']['properties']['discount']['string'] = 'code';
+  $info['entity_discount_entity']['properties']['uid']['integer'] = 'user';
+}
+
+/**
  * Implements form_FORM_ID_alter().
  */
 function entity_discount_form_user_register_form_alter(&$form, &$form_state, $form_id) {

@@ -6,3 +6,5 @@ configure = admin/config/entity-discount
 dependencies[] = entity
 dependencies[] = token
 dependencies[] = token_filter
+dependencies[] = views
+dependencies[] = views_ui
