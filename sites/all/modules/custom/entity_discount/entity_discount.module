@@ -1,0 +1,125 @@
+<?php
+
+/**
+ * @file
+ * Entity discount module file.
+ *
+ * Issues a discount code upon registration.
+ */
+
+$path = drupal_get_path('module', 'entity_discount');
+require_once $path . '/includes/entity_discount.common.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function entity_discount_menu() {
+  $items = array();
+
+  $items['entity-discount'] = array(
+    'title' => 'Entity discount',
+    'description' => 'This is discount.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('entity_discount_form'),
+    'type' => MENU_NORMAL_ITEM,
+    'access callback' => 'user_is_logged_in',
+    'access arguments' => array(1),
+    'file' => 'includes/entity_discount.form.inc',
+  );
+
+  $items['admin/config/entity-discount'] = array(
+    'title' => 'Entity discount',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('entity_discount_config_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'includes/entity_discount.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_entity_info().
+ */
+function entity_discount_entity_info() {
+  $info['entity_discount_entity'] = array(
+    'label' => t('Entity discount entity'),
+    'entity class' => 'Entity',
+    'controller class' => 'EntityAPIController',
+    'module' => 'entity_discount',
+    'base table' => 'entity_discount_discount',
+    'load hook' => 'entity_discount_load_entity',
+    'entity keys' => array(
+      'id' => 'discount',
+    ),
+  );
+ 
+  return $info;
+}
+
+/**
+ * Implements form_FORM_ID_alter().
+ */
+function entity_discount_form_user_register_form_alter(&$form, &$form_state, $form_id) {
+
+  $form['#submit'][] = 'entity_discount_form_submit';
+}
+
+/**
+ * After registration.
+ *
+ * Calls the entity_discount_generate_code() and redirect on discount pages.
+ */
+function entity_discount_form_submit($form, &$form_state) {
+
+  entity_discount_generate_code();
+  $form_state['redirect'] = 'entity-discount';
+}
+
+/**
+ * Implements hook_token_info().
+ */
+function entity_discount_token_info() {
+
+  $type = array(
+    'name' => t('Entity Discount'),
+    'description' => t('Entity Discount data.'),
+  );
+
+  $entity_discount['code'] = array(
+    'name' => t('Discount code'),
+    'description' => t('Discount code.'),
+  );
+
+  return array(
+    'types' => array('entity_discount' => $type),
+    'tokens' => array('entity_discount' => $entity_discount),
+  );
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function entity_discount_tokens($type, $tokens, array $data = array(), array $options = array()) {
+
+  $replacements = array();
+
+  if ($type == 'entity_discount') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'code':
+
+          $code = entity_discount_get_code();
+          if ($code) {
+            $replacements[$original] = $code;
+          }
+          else {
+            $replacements[$original] = 'not found';
+          }
+          break;
+      }
+    }
+  }
+
+  return $replacements;
+}

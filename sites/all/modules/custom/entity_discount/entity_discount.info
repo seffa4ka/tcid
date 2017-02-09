@@ -1,0 +1,8 @@
+name = Entity Discount
+description = Issues a discount code upon registration.
+core = 7.x
+package = Custom
+configure = admin/config/entity-discount
+dependencies[] = entity
+dependencies[] = token
+dependencies[] = token_filter
