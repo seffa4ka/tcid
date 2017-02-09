@@ -26,12 +26,14 @@ function entity_discount_get_code() {
 
   global $user;
 
-  //$entity = entity_load('entity_discount_entity', array(), array('uid' => 'bf2df05732'));
-  $entity = new EntityFieldQuery();
-  $entity->entityCondition('entity_discount_entity', 'uid');
-  if (isset($entity)) {
-    dsm($entity);
-    //return $entity;
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'entity_discount_entity');
+  $query->propertyCondition('uid', $user->uid);
+  $entity = $query->execute();
+  
+  if (isset($entity['entity_discount_entity'])) {
+    $code = array_keys($entity['entity_discount_entity']);
+    return $code[0];
   }
   else {
     return NULL;
