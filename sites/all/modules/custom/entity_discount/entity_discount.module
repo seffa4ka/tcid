@@ -46,6 +46,7 @@ function entity_discount_entity_info() {
     'label' => t('Entity discount entity'),
     'entity class' => 'Entity',
     'controller class' => 'EntityAPIController',
+    'views controller class' => 'EntityDefaultViewsController',
     'module' => 'entity_discount',
     'base table' => 'entity_discount_discount',
     'load hook' => 'entity_discount_load_entity',
@@ -53,7 +54,7 @@ function entity_discount_entity_info() {
       'id' => 'discount',
     ),
   );
- 
+
   return $info;
 }
 
@@ -63,6 +64,16 @@ function entity_discount_entity_info() {
 function entity_discount_entity_property_info_alter(&$info) {
   $info['entity_discount_entity']['properties']['discount']['string'] = 'code';
   $info['entity_discount_entity']['properties']['uid']['integer'] = 'user';
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function entity_discount_views_api() {
+  return array(
+    'api' => 2,
+    'path' => drupal_get_path('module', 'entity_discount'),
+  );
 }
 
 /**
