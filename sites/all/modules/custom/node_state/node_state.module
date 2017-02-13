@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Node state module file.
+ *
+ * It shows the status of nodes.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function node_state_menu() {
+  $items = array();
+
+  $items['admin/config/node-state'] = array(
+    'title' => 'Node state',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('node_state_config_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'includes/node_state.admin.inc',
+  );
+
+  return $items;
+}

@@ -22,6 +22,11 @@ function entity_discount_generate_code() {
   return entity_save('entity_discount_entity', $entity);
 }
 
+/**
+ * Function outputs the code of the database.
+ *
+ * @global type $user
+ */
 function entity_discount_get_code() {
 
   global $user;

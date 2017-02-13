@@ -1,0 +1,10 @@
+name = Node state
+description = It shows the status of nodes.
+core = 7.x
+package = Custom
+configure = admin/config/node-state
+dependencies[] = entity
+dependencies[] = token
+dependencies[] = token_filter
+dependencies[] = views
+dependencies[] = views_ui
