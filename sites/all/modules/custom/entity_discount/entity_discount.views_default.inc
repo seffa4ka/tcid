@@ -33,15 +33,15 @@ function entity_discount_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'table';
   $handler->display->display_options['style_options']['columns'] = array(
-    'uid' => 'uid',
+    'name' => 'name',
     'discount' => 'discount',
   );
-  $handler->display->display_options['style_options']['default'] = 'uid';
+  $handler->display->display_options['style_options']['default'] = '-1';
   $handler->display->display_options['style_options']['info'] = array(
-    'uid' => array(
+    'name' => array(
       'sortable' => 1,
       'default_sort_order' => 'asc',
-      'align' => 'views-align-left',
+      'align' => '',
       'separator' => '',
       'empty_column' => 0,
     ),
@@ -53,12 +53,16 @@ function entity_discount_views_default_views() {
       'empty_column' => 0,
     ),
   );
-  /* Field: Entity discount entity: Uid */
-  $handler->display->display_options['fields']['uid']['id'] = 'uid';
-  $handler->display->display_options['fields']['uid']['table'] = 'entity_discount_discount';
-  $handler->display->display_options['fields']['uid']['field'] = 'uid';
-  $handler->display->display_options['fields']['uid']['label'] = 'UID';
-  $handler->display->display_options['fields']['uid']['element_label_colon'] = FALSE;
+  /* Relationship: Entity discount entity: User name */
+  $handler->display->display_options['relationships']['username']['id'] = 'username';
+  $handler->display->display_options['relationships']['username']['table'] = 'entity_discount_discount';
+  $handler->display->display_options['relationships']['username']['field'] = 'username';
+  $handler->display->display_options['relationships']['username']['required'] = TRUE;
+  /* Field: User: Name */
+  $handler->display->display_options['fields']['name']['id'] = 'name';
+  $handler->display->display_options['fields']['name']['table'] = 'users';
+  $handler->display->display_options['fields']['name']['field'] = 'name';
+  $handler->display->display_options['fields']['name']['relationship'] = 'username';
   /* Field: Entity discount entity: Entity discount entity ID */
   $handler->display->display_options['fields']['discount']['id'] = 'discount';
   $handler->display->display_options['fields']['discount']['table'] = 'entity_discount_discount';

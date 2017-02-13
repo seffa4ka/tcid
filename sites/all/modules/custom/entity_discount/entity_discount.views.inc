@@ -8,9 +8,9 @@
 /**
  * Implements hook_views_data_alter().
  */
-function entity_discount_views_data_alter() {
-  $data['entity_discount_discount']['discount'] = array(
-    'title' => t('code'),
+function entity_discount_views_data_alter(&$data) {
+  $data['entity_discount_discount']['username'] = array(
+    'title' => t('User name'),
     'help' => t('No.'),
     'relationship' => array(
       'base' => 'users',
