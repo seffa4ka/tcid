@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Node state install file.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function node_state_schema() {
+
+  $schema['node_state'] = array(
+    'fields' => array(
+      'aid' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'nid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'timestamp' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('aid'),
+  );
+
+  return $schema;
+}

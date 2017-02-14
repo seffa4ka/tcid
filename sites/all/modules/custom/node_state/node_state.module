@@ -20,6 +20,87 @@ function node_state_menu() {
     'access arguments' => array('administer site configuration'),
     'file' => 'includes/node_state.admin.inc',
   );
+  
+  $items['admin/config/node-state-node'] = array(
+    'title' => 'Node state',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('node_state_node_config_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'includes/node_state.admin.inc',
+  );
 
   return $items;
+}
+
+/**
+ * Implements hook_entity_info().
+ */
+function node_state_entity_info() {
+  $info['node_state_entity'] = array(
+    'label' => t('Entity node state'),
+    'entity class' => 'Entity',
+    'controller class' => 'EntityAPIController',
+    'module' => 'node_state',
+    'base table' => 'node_state',
+    'entity keys' => array(
+      'id' => 'aid',
+    ),
+  );
+
+  return $info;
+}
+
+/**
+ * Implements hook_entity_property_info().
+ *//*
+function node_state_entity_property_info() {
+  $info = array();
+
+  $properties = &$info['node_state']['properties'];
+
+  $properties['aid'] = array(
+    'label' => t("AI ID"),
+    'type' => 'integer',
+    'description' => t("PK AI ID"),
+    'schema field' => 'aid',
+  );
+
+  $properties['nid'] = array(
+    'label' => t("Node ID"),
+    'type' => 'integer',
+    'description' => t("Node ID"),
+    'schema field' => 'nid',
+  );
+
+  $properties['uid'] = array(
+    'label' => t("User ID"),
+    'type' => 'integer',
+    'description' => t("User ID"),
+    'schema field' => 'uid',
+  );
+
+  $properties['timestamp'] = array(
+    'label' => t("timestamp"),
+    'type' => 'integer',
+    'description' => t("timestamp"),
+    'schema field' => 'timestamp',
+  );
+
+  return $info;
+}
+*/
+/**
+ * Implements hook_node_view().
+ */
+function node_state_node_view($node, $view_mode) {
+  global $user;
+
+  $values = array(
+    'nid' => $node->nid,
+    'uid'  => $user->uid,
+    'timestamp'  => time(),
+  );
+
+  $entity = entity_create('node_state_entity', $values);
+  return entity_save('node_state_entity', $entity);
 }
