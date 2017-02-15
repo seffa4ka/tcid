@@ -65,14 +65,14 @@ class NodeLogEntityMetadataController extends EntityDefaultMetadataController {
       'type' => 'user',
       'description' => t("User ID"),
       'schema field' => 'uid',
-    );/*
+    );
     $info[$this->type]['properties']['timestamp'] = array(
       'label' => t("timestamp"),
-      'type' => 'integer',
+      'type' => 'date',
       'description' => t("timestamp"),
       'schema field' => 'timestamp',
       'setter callback' => 'entity_property_verbatim_set',
-    );*/
+    );
     return $info;
   }
 }
