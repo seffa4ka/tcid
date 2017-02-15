@@ -1,0 +1,7 @@
+name = Node log
+description = It shows the log of nodes.
+core = 7.x
+package = Custom
+configure = admin/config/node-log
+dependencies[] = entity
+dependencies[] = views

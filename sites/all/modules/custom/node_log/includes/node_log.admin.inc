@@ -9,12 +9,8 @@
  * Form admin configuration.
  *
  */
-function node_state_config_form($form, &$form_state) {
+function node_log_config_form($form, &$form_state) {
   $form = array();
-  
-  $form['label'] = array(
-    '#markup' => t('Hello!'),
-  );
 
   return $form;
 }
@@ -23,7 +19,7 @@ function node_state_config_form($form, &$form_state) {
  * Form admin configuration.
  *
  */
-function node_state_node_config_form($form, &$form_state) {
+function node_log_node_config_form($form, &$form_state) {
   $form = array();
   
   $form['label'] = array(

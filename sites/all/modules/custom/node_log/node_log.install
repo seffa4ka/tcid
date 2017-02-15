@@ -2,15 +2,15 @@
 
 /**
  * @file
- * Node state install file.
+ * Node log install file.
  */
 
 /**
  * Implements hook_schema().
  */
-function node_state_schema() {
+function node_log_schema() {
 
-  $schema['node_state'] = array(
+  $schema['node_log'] = array(
     'fields' => array(
       'aid' => array(
         'type' => 'serial',

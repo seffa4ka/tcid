@@ -1,0 +1,104 @@
+<?php
+
+/**
+ * @file
+ * Node log module file.
+ *
+ * It shows the status of nodes.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function node_log_menu() {
+  $items = array();
+
+  $items['admin/config/node-log'] = array(
+    'title' => 'Node state',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('node_log_config_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'includes/node_log.admin.inc',
+  );
+  
+  $items['admin/config/node-log-node'] = array(
+    'title' => 'Node state',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('node_log_node_config_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'includes/node_log.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_entity_info().
+ */
+function node_log_entity_info() {
+  $info['node_log_entity'] = array(
+    'label' => t('Entity node log'),
+    'entity class' => 'Entity',
+    'metadata controller class' => 'NodeLogEntityMetadataController',
+    'controller class' => 'EntityAPIController',
+    'module' => 'node_log',
+    'base table' => 'node_log',
+    'entity keys' => array(
+      'id' => 'aid',
+    ),
+  );
+
+  return $info;
+}
+
+class NodeLogEntityMetadataController extends EntityDefaultMetadataController {
+  public function entityPropertyInfo() {
+    $info = parent::entityPropertyInfo();
+    $info[$this->type]['properties']['node'] = array(
+      'label' => t("Node"),
+      'type' => 'node',
+      'description' => t("Node"),
+      'schema field' => 'nid',
+    );
+    $info[$this->type]['properties']['user'] = array(
+      'label' => t("User ID"),
+      'type' => 'user',
+      'description' => t("User ID"),
+      'schema field' => 'uid',
+    );/*
+    $info[$this->type]['properties']['timestamp'] = array(
+      'label' => t("timestamp"),
+      'type' => 'integer',
+      'description' => t("timestamp"),
+      'schema field' => 'timestamp',
+      'setter callback' => 'entity_property_verbatim_set',
+    );*/
+    return $info;
+  }
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function node_log_views_api() {
+  return array(
+    'api' => 2,
+    'path' => drupal_get_path('module', 'node_log'),
+  );
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function node_log_node_view($node, $view_mode) {
+  global $user;
+
+  $values = array(
+    'nid' => $node->nid,
+    'uid'  => $user->uid,
+    'timestamp'  => time(),
+  );
+
+  $entity = entity_create('node_log_entity', $values);
+  return entity_save('node_log_entity', $entity);
+}
