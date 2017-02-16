@@ -1,0 +1,7 @@
+name = Exchange Rates
+description = It shows the Exchange Rates.
+core = 7.x
+package = Custom
+configure = admin/config/exchange-rates
+dependencies[] = entity
+dependencies[] = views

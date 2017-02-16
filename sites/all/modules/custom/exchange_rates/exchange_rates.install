@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Exchange Rates install file.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function exchange_rates_schema() {
+
+  $schema['exchange_rates'] = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'code' => array(
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'value' => array(
+        'type' => 'float',
+        'not null' => TRUE,
+      ),
+      'timestamp' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+
+  return $schema;
+}

@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Exchange Rates module file.
+ *
+ * It shows the Exchange Rates.
+ */
+
+require_once 'includes/exchange_rates.common.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function exchange_rates_menu() {
+  $items = array();
+
+  $items['admin/config/exchange-rates'] = array(
+    'title' => 'Node state',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('exchange_rates_config_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'includes/exchange_rates.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_entity_info().
+ */
+function exchange_rates_entity_info() {
+  $info['exchange_rates_entity'] = array(
+    'label' => t('Entity exchange rates'),
+    'entity class' => 'Entity',
+    'controller class' => 'EntityAPIController',
+    'module' => 'exchange_rates',
+    'base table' => 'exchange_rates',
+    'entity keys' => array(
+      'id' => 'id',
+    ),
+  );
+
+  return $info;
+}
