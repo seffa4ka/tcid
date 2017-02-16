@@ -14,12 +14,12 @@
  *   Parameter $user->uid.
  *
  * @return bool
- *   If isset false, else true.
+ *   Isset.
  */
-function node_log_log_is_loged($node, $uid) {
+function node_log_is_logged($node, $uid) {
 
   $latency = variable_get('node_log_latency');
-  $time = time() - $latency;
+  $time = REQUEST_TIME - $latency;
 
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node_log_entity');
@@ -30,10 +30,5 @@ function node_log_log_is_loged($node, $uid) {
   $query->range(0, 1);
   $checkEntity = $query->execute();
 
-  if (!isset($checkEntity['node_log_entity'])) {
-    return TRUE;
-  }
-  else {
-    return FALSE;
-  }
+  return isset($checkEntity['node_log_entity']);
 }
