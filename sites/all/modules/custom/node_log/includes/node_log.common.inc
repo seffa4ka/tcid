@@ -67,8 +67,14 @@ function get_log($node) {
   $query->range(0, 1);
   $checkEntity = $query->execute();
 
-  foreach ($checkEntity['node_log_entity'] as $value) {
-    $time = $value->timestamp;
+  if (isset($checkEntity['node_log_entity'])) {
+  
+    foreach ($checkEntity['node_log_entity'] as $value) {
+      $time = $value->timestamp;
+    }
+  }
+  else {
+      $time = 0;
   }
 
   $latency = variable_get('log_latency');
