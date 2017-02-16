@@ -5,3 +5,4 @@ package = Custom
 configure = admin/config/node-log
 dependencies[] = entity
 dependencies[] = views
+files[] = includes/NodeLogEntityMetadataController.inc

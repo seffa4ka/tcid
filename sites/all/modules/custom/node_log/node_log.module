@@ -7,7 +7,7 @@
  * It shows the status of nodes.
  */
 
-require_once __DIR__ . '/includes/node_log.common.inc';
+require_once 'includes/node_log.common.inc';
 
 /**
  * Implements hook_menu().
@@ -19,14 +19,6 @@ function node_log_menu() {
     'title' => 'Node state',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('node_log_config_form'),
-    'access arguments' => array('administer site configuration'),
-    'file' => 'includes/node_log.admin.inc',
-  );
-
-  $items['admin/config/node-log-node'] = array(
-    'title' => 'Node state',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('node_log_node_config_form'),
     'access arguments' => array('administer site configuration'),
     'file' => 'includes/node_log.admin.inc',
   );
@@ -46,7 +38,7 @@ function node_log_entity_info() {
     'module' => 'node_log',
     'base table' => 'node_log',
     'entity keys' => array(
-      'id' => 'timestamp',
+      'id' => 'aid',
     ),
   );
 
@@ -67,5 +59,15 @@ function node_log_views_api() {
  * Implements hook_node_view().
  */
 function node_log_node_view($node, $view_mode) {
-  get_log($node);
+  global $user;
+
+  if (node_log_log_is_loged($node, $user->uid)) {
+    $values = array(
+      'nid' => $node->nid,
+      'uid'  => $user->uid,
+      'timestamp'  => time(),
+    );
+    $entity = entity_create('node_log_entity', $values);
+    entity_save('node_log_entity', $entity);
+  }
 }
