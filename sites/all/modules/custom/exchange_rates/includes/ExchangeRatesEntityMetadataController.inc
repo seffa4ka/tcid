@@ -13,7 +13,7 @@ class ExchangeRatesEntityMetadataController extends EntityDefaultMetadataControl
   /**
    * It describes the entity.
    *
-   * Linked node_log_entity with node and user. Processing timestamp.
+   * Processing timestamp.
    *
    * @return array
    *   Property info.

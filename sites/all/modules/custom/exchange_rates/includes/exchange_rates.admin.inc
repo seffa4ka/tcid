@@ -9,7 +9,7 @@
  * Glues form.
  *
  * @return array
- *  Form.
+ *   Form.
  */
 function exchange_rates_page_forms() {
 
@@ -19,17 +19,23 @@ function exchange_rates_page_forms() {
   return $build;
 }
 
-
 /**
  * Form admin configuration.
+ *
+ * Felds for added new currency value: code, value, timestamp.
  */
 function exchange_rates_config_form($form, &$form_state) {
   $form = array();
+
+  $form['label'] = array(
+    '#markup' => t('Add a new currency value.'),
+  );
 
   $form['code'] = array(
     '#type' => 'textfield',
     '#title' => t('Currency code'),
     '#required' => TRUE,
+    '#description' => t('Example: rub.'),
   );
 
   $form['value'] = array(
@@ -37,12 +43,14 @@ function exchange_rates_config_form($form, &$form_state) {
     '#title' => t('Rate'),
     '#element_validate' => array('element_validate_number'),
     '#required' => TRUE,
+    '#description' => t('Value.'),
   );
 
   $form['timestamp'] = array(
     '#type' => 'date',
     '#title' => t('Date'),
     '#required' => TRUE,
+    '#description' => t('Set the date update.'),
   );
 
   $form['submit'] = array(
@@ -54,8 +62,18 @@ function exchange_rates_config_form($form, &$form_state) {
   return $form;
 }
 
+/**
+ * Batch form.
+ *
+ * @return array
+ *   Form.
+ */
 function exchange_rates_batch_form($form, &$form_state) {
   $form = array();
+
+  $form['label'] = array(
+    '#markup' => t("Mass update currency rates on today's date."),
+  );
 
   $form['batch'] = array(
     '#type' => 'submit',

@@ -90,7 +90,7 @@ function exchange_rates_views_default_views() {
   $handler->display->display_options['fields']['timestamp']['label'] = 'Date';
   $handler->display->display_options['fields']['timestamp']['date_format'] = 'long';
   $handler->display->display_options['fields']['timestamp']['second_date_format'] = 'long';
-   /* Display: Page */
+  /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['path'] = 'exchange-rates';
 
