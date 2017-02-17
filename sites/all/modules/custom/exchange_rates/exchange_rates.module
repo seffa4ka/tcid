@@ -17,8 +17,7 @@ function exchange_rates_menu() {
 
   $items['admin/config/exchange-rates'] = array(
     'title' => 'Node state',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('exchange_rates_config_form'),
+    'page callback' => 'exchange_rates_page_forms',
     'access arguments' => array('administer site configuration'),
     'file' => 'includes/exchange_rates.admin.inc',
   );
@@ -33,6 +32,7 @@ function exchange_rates_entity_info() {
   $info['exchange_rates_entity'] = array(
     'label' => t('Entity exchange rates'),
     'entity class' => 'Entity',
+    'metadata controller class' => 'ExchangeRatesEntityMetadataController',
     'controller class' => 'EntityAPIController',
     'module' => 'exchange_rates',
     'base table' => 'exchange_rates',
@@ -42,4 +42,14 @@ function exchange_rates_entity_info() {
   );
 
   return $info;
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function exchange_rates_views_api() {
+  return array(
+    'api' => 2,
+    'path' => drupal_get_path('module', 'exchange_rates'),
+  );
 }

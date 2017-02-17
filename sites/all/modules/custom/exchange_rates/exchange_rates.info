@@ -5,3 +5,4 @@ package = Custom
 configure = admin/config/exchange-rates
 dependencies[] = entity
 dependencies[] = views
+files[] = includes/ExchangeRatesEntityMetadataController.inc

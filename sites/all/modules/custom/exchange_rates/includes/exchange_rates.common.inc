@@ -23,3 +23,7 @@ function exchange_rates_form_rate_submit($form, &$form_state) {
   $entity = entity_create('exchange_rates_entity', $values);
   entity_save('exchange_rates_entity', $entity);
 }
+
+function exchange_rates_form_batch_submit($form, &$form_state) {
+    
+}
