@@ -7,7 +7,7 @@
  * It shows the Exchange Rates.
  */
 
-require_once 'includes/exchange_rates.common.inc';
+require_once 'includes/exchange_rates.batch.inc';
 
 /**
  * Implements hook_menu().
