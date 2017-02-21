@@ -6,7 +6,7 @@
  */
 
 /**
- * Finds ID. Forming operation. Describes batch.
+ * Finds ID and forming operation.
  */
 function exchange_rates_initial_update_rate() {
 
