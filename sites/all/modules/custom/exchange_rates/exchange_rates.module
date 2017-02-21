@@ -8,6 +8,7 @@
  */
 
 require_once 'includes/exchange_rates.batch.inc';
+require_once 'includes/exchange_rates.common.inc';
 
 /**
  * Implements hook_menu().

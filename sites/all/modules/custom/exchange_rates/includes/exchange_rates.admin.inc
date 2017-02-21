@@ -14,7 +14,7 @@
 function exchange_rates_page_forms() {
 
   $build['form1'] = drupal_get_form('exchange_rates_config_form');
-  $build['form2'] = drupal_get_form('exchange_rates_batch_form');
+  $build['form2'] = drupal_get_form('exchange_rates_update_form');
 
   return $build;
 }
@@ -88,7 +88,7 @@ function exchange_rates_form_rate_submit($form, &$form_state) {
  * @return array
  *   Form.
  */
-function exchange_rates_batch_form($form, &$form_state) {
+function exchange_rates_update_form($form, &$form_state) {
   $form = array();
 
   $form['label'] = array(
@@ -98,8 +98,16 @@ function exchange_rates_batch_form($form, &$form_state) {
   $form['batch'] = array(
     '#type' => 'submit',
     '#value' => t('Update'),
-    '#submit' => array('exchange_rates_form_batch_submit'),
+    '#submit' => array('exchange_rates_form_update_submit'),
   );
 
   return $form;
+}
+
+/**
+ * Start batch.
+ */
+function exchange_rates_form_update_submit($form, &$form_state) {
+
+    batch_set(exchange_rates_initial_update_rate());
 }
